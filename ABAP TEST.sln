@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABAP TEST", "ABAP TEST\ABAP TEST.csproj", "{DCF1FF68-BAF7-4008-8DF1-EF85C4359783}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaleeUtilities", "..\CentralSQLSAP\MaleeUtilities\MaleeUtilities.csproj", "{2DD0F03B-2EDD-46DC-8527-670AE87DE8D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCF1FF68-BAF7-4008-8DF1-EF85C4359783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF1FF68-BAF7-4008-8DF1-EF85C4359783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF1FF68-BAF7-4008-8DF1-EF85C4359783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF1FF68-BAF7-4008-8DF1-EF85C4359783}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DD0F03B-2EDD-46DC-8527-670AE87DE8D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DD0F03B-2EDD-46DC-8527-670AE87DE8D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DD0F03B-2EDD-46DC-8527-670AE87DE8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DD0F03B-2EDD-46DC-8527-670AE87DE8D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
