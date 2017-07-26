@@ -56,7 +56,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CentralSQLSAP\MaleeUtilities\MaleeUtilities.csproj">
+    <ProjectReference Include="D:\OneDrive\OneDrive - Malee Group Public Company Limited\MaleeUtilities\MaleeUtilities\MaleeUtilities.csproj">
       <Project>{2dd0f03b-2edd-46dc-8527-670ae87de8d8}</Project>
       <Name>MaleeUtilities</Name>
     </ProjectReference>

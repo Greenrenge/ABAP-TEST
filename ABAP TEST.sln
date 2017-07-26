@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABAP TEST", "ABAP TEST\ABAP TEST.csproj", "{DCF1FF68-BAF7-4008-8DF1-EF85C4359783}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaleeUtilities", "..\CentralSQLSAP\MaleeUtilities\MaleeUtilities.csproj", "{2DD0F03B-2EDD-46DC-8527-670AE87DE8D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaleeUtilities", "D:\OneDrive\OneDrive - Malee Group Public Company Limited\MaleeUtilities\MaleeUtilities\MaleeUtilities.csproj", "{2DD0F03B-2EDD-46DC-8527-670AE87DE8D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
