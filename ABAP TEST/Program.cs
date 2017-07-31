@@ -1,11 +1,13 @@
 ﻿using MaleeUtilities.SAP.Utils;
 using SAP.Middleware.Connector;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using MaleeUtilities.ServiceUltil;
 
 namespace ABAP_TEST
 {
@@ -14,6 +16,33 @@ namespace ABAP_TEST
         public string PREQ_NO { get; set; }
         public string PR_TYPE { get; set; }
         public string CTRL_IND { get; set; }
+        //หรือว่ารับ structure เข้ามาแล้วมาหยอดด้วยตัวเอง ---> เป็น interface
+    }
+    public class BAPIMEREQITEM
+    {
+        public string PREQ_ITEM { get; set; }//num5
+        public string DOC_TYPE { get; set; }//char4
+        public string DOC_CAT { get; set; }//char1
+        public string CTRL_IND { get; set; }//char1
+    }
+    public class StructureCreator
+    {
+        //https://stackoverflow.com/questions/223952/create-an-instance-of-a-class-from-a-string
+        public static object CreateObject(string structureName,IRfcStructure row)
+        {
+            if (structureName == "BAPIMEREQHEADER")
+            {
+                var setting = new PropertiesList<DataContainer>
+                    {
+                        { "PREQ_NO", x=>x.PREQ_NO},
+                        { "PREQ_NO", x=>x.PREQ_NO},
+                        { "PR_TYPE", x=>x.PR_TYPE},
+                        { "CTRL_IND", x=>x.CTRL_IND},
+                    };
+                return row.ToObject(setting);
+            }
+            else return null;
+        }
     }
     class Program
     {
@@ -189,29 +218,90 @@ namespace ABAP_TEST
              * TABLES SERVICEOUTLINE:STRUCTURE BAPI_SRV_OUTLINE
              * */
             IRfcFunction function = des.Repository.CreateFunction("BAPI_PR_GETDETAIL");
-            //prepare import structure
-            //IRfcStructure impStruct = function.GetStructure("IMPORTNAME");
 
-
+            #region exmaple for input structure as input bapi
+            IRfcTable table = function["PRITEM"].GetTable();//table
+            //HERE : try to append data to table for input to bapi
+            table.Append();//create new row
+            IRfcStructure current = table.CurrentRow;//current structure ,row
+            string structure_name = current.Metadata.Name; //= //BAPIMEREQITEM
+            BAPIMEREQITEM item = new BAPIMEREQITEM
+            {
+                PREQ_ITEM = "00010",
+                DOC_CAT = "X",
+                DOC_TYPE = "MANU",
+                CTRL_IND = "Y",
+                
+            };
+            var setting = new PropertiesList<BAPIMEREQITEM>
+            {
+                { "PREQ_ITEM", x=>x.PREQ_ITEM},
+                { "DOC_TYPE", x=>x.DOC_TYPE},
+                { "DOC_CAT ", x=>x.DOC_CAT},
+                { "CTRL_IND", x=>x.CTRL_IND},
+            };
+            current.FromObject<BAPIMEREQITEM>(item,setting);
+            var count = table.Count;
+            #endregion
+            #region example for set input parameter for Bapi
             function.SetValue("NUMBER", "1021019932");
             //function.SetValue("ITEM_TEXT", "X");
+            #endregion
+
+            //Call bapi
             function.Invoke(des);
 
-            IRfcParameter export = function["PRHEADER"];
+
+            #region example for fetch structure as object
+            /*
+             *  IRfcParameter export = function["PRHEADER"];
             IRfcStructure structure = export.GetStructure();
-            Dictionary<string, Expression<Func<DataContainer, object>>> setting = new Dictionary<string, Expression<Func<DataContainer, object>>>
+            var setting = new PropertiesList<DataContainer>
             {
+                { "PREQ_NO", x=>x.PREQ_NO},
                 { "PREQ_NO", x=>x.PREQ_NO},
                 { "PR_TYPE", x=>x.PR_TYPE},
                 { "CTRL_IND", x=>x.CTRL_IND},
             };
-            var output = structure.ToClass(setting);
+            DataContainer output = structure.ToObject(setting);*/
+            #endregion
 
-            //var PREQ_NO = structure.GetValue("PREQ_NO");
+
+
+            #region Try to Dynamic Create structure , invoker must know exactly type and casting to it in runtime
+            /*
+            foreach (var param in function)//thru import,export,table
+            {
+                switch (param.Metadata.DataType)
+                {
+                    case RfcDataType.STRUCTURE:
+                        {
+                            string name = param.Metadata.Name;
+                            string structureName = param.Metadata.ValueMetadataAsStructureMetadata.Name;
+                            IRfcStructure structure1 = param.GetStructure();
+                            object item = StructureCreator.CreateObject(structureName, structure1);
+                            
+                            break;
+                        }
+                    case RfcDataType.TABLE:
+                        {
+                            string name = param.Metadata.Name;
+                            break;
+                        }
+                    default: //non-structure
+                        {
+                            string name = param.Metadata.Name;
+                            break;
+                        }
+                }
+            }*/
+            #endregion
+
 
             IRfcParameter returnTable = function["PRITEM"];
-            var table1 = returnTable.GetTable();
-            foreach (var record in table1)
+            IRfcTable table1 = returnTable.GetTable();
+
+            foreach (IRfcStructure record in table1)
             {
                 Console.WriteLine(String.Format("{0}:{1}", record.GetInt("PREQ_ITEM"), record.GetValue("PREQ_ITEM").ToString()));
             }
@@ -219,4 +309,5 @@ namespace ABAP_TEST
             #endregion set
         }
     }
+
 }
