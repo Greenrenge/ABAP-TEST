@@ -140,7 +140,6 @@ namespace ABAP_TEST
             });
             var des = RfcDestinationManager.GetDestination(DestinationRegister.Destination());
 
-
             #region get
 
 
