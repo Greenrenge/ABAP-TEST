@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="sapnco">
       <HintPath>D:\OneDrive\OneDrive - Malee Group Public Company Limited\Green\Green Projects\Bundles\SAP 3.0.18\x86 SAP 3.0.10\sapnco.dll</HintPath>
     </Reference>
@@ -54,8 +58,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="D:\OneDrive\OneDrive - Malee Group Public Company Limited\JWorkflow\JWorkflow\JWorkflow\JWorkflow.csproj">
+      <Project>{25b20aef-d0b8-49ff-b2bf-1bac3ebe24c9}</Project>
+      <Name>JWorkflow</Name>
+    </ProjectReference>
     <ProjectReference Include="D:\OneDrive\OneDrive - Malee Group Public Company Limited\MaleeUtilities\MaleeUtilities\MaleeUtilities.csproj">
       <Project>{2dd0f03b-2edd-46dc-8527-670ae87de8d8}</Project>
       <Name>MaleeUtilities</Name>

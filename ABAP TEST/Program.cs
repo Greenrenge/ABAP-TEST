@@ -8,6 +8,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using MaleeUtilities.ServiceUltil;
+using System.IO;
+using Newtonsoft.Json;
+using JWorkflow;
 
 namespace ABAP_TEST
 {
@@ -46,7 +49,7 @@ namespace ABAP_TEST
     }
     class Program
     {
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
             #region Note worth to read
             //https://archive.sap.com/discussions/thread/760060
@@ -306,6 +309,27 @@ namespace ABAP_TEST
             }
 
             #endregion set
+        }
+        static void Main(string[] args)
+        {
+            try
+            {
+                using (FileStream file = File.Open(@"D:\OneDrive\OneDrive - Malee Group Public Company Limited\JWorkflow\JWorkflow\JWorkflow\SampleConfig\flowsetting.json", FileMode.Open))
+                {
+                    string content;
+                    using (var streamReader = new StreamReader(file))
+                    {
+                        content = streamReader.ReadToEnd();
+                    }
+                    WorkflowConfig result;
+                    if (content.Length > 0) result = JsonConvert.DeserializeObject<WorkflowConfig>(content); //read old log
+                    Console.ReadLine();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception : " + ex);
+            }
         }
     }
 
